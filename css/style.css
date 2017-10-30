@@ -1,0 +1,16 @@
+body {
+  color: white;
+  background: url(../images/galaxy-back.jpg) no-repeat center fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.btn {
+  background: radial-gradient(#4c295c, #1A638D);
+  width: 20%;
+  margin: 10%;
+}

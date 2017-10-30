@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+}
+canvas {
+  background: radial-gradient(rgb(0, 0, 0),#585757);
+    border: 1px solid black;
+}
