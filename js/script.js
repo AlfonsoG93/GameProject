@@ -4,7 +4,7 @@ canvas.height = window.innerHeight - 30;
 
 var ctx = canvas.getContext("2d");
 
-function Stars(x ,y ,radius, startdeg, radians){
+function Planet(x ,y ,radius, startdeg, radians){
 this.x = x;
 this.y = y;
 this.radius = radius;
@@ -12,7 +12,7 @@ this.startdeg = startdeg;
 this.radians = radians;
 }
 
-Stars.prototype.draw = function(){
+Planets.prototype.draw = function(){
 
 };
 
