@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Star Catcher</title>
+</head>
+
+<body>
+    <h1>Star Catcher</h1>
+
+    <div class='start-button'>
+        <a href="./game.html">
+            <button type="button" class="btn btn-primary start">Start Game</button>
+        </a>
+    </div>
+
+    <div class='instr-button'>
+        <!-- <a href="./instructions.html">
+            <button type="button" class="btn btn-primary instr">Instructions</button>
+        </a> -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">
+            Instructions
+        </button>
+        <div class="modal fade" id="modal-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title"> Instructions</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Objective</h3>
+                        <p>...</p>
+                        <h3>Controls</h3>
+                        <p>...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal"> Close </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

@@ -6,11 +6,14 @@ body {
 }
 
 h1 {
-  text-align: center;
+  margin: 10%;
+}
+h2 {
+  margin: 5%;
 }
 
 .btn {
-  background: radial-gradient(#4c295c, #1A638D);
+  background: radial-gradient(#c33764, #1d2671);
+  margin: 5%;
   width: 20%;
-  margin: 10%;
 }
