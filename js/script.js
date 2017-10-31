@@ -1,13 +1,24 @@
-
 var canvas = document.querySelector(".my-game");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = window.innerWidth - 30;
+canvas.height = window.innerHeight - 30;
 
 var ctx = canvas.getContext("2d");
 
+function Stars(x ,y ,radius, startdeg, radians){
+this.x = x;
+this.y = y;
+this.radius = radius;
+this.startdeg = startdeg;
+this.radians = radians;
+}
+
+Stars.prototype.draw = function(){
+
+};
+
 var player = {
-  x: window.innerWidth / 2,
-  y: window.innerHeight / 2,
+  x: canvas.width / 2,
+  y: canvas.height / 2,
   startDeg: 0,
   radius: 50,
   radians: 2 * Math.PI,
@@ -33,30 +44,30 @@ var player = {
 };
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-    player.draw();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    requestAnimationFrame(draw);
-  }
-  
+  player.draw();
+
   requestAnimationFrame(draw);
-  
-  $(document).ready(function() {
-    $(document).keydown(function() {
-      switch (event.keyCode) {
-        case 37:
-          player.x -= 20;
-          break;
-        case 38:
-          player.y -= 20;
-          break;
-        case 39:
-          player.x += 20;
-          break;
-        case 40:
-          player.y += 20;
-          break;
-      }
-    });
+}
+
+requestAnimationFrame(draw);
+
+$(document).ready(function() {
+  $(document).keydown(function() {
+    switch (event.keyCode) {
+      case 37:
+        player.x -= 20;
+        break;
+      case 38:
+        player.y -= 20;
+        break;
+      case 39:
+        player.x += 20;
+        break;
+      case 40:
+        player.y += 20;
+        break;
+    }
   });
+});
