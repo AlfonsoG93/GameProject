@@ -3,5 +3,5 @@ body {
 }
 canvas {
   background: radial-gradient(#c33764, #1d2671);
-    border: 1px solid black;
+    border: 5px solid black;
 }
