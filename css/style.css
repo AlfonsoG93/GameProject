@@ -17,3 +17,10 @@ h2 {
   margin: 5%;
   width: 20%;
 }
+.modal-body {
+  color: black; 
+}
+
+.modal-title{
+  color: black;
+}

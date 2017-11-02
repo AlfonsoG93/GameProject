@@ -13,19 +13,21 @@ function getRandomColor() {
   return color;
 }
 
-function Planet() {
+function Planet(player) {
   this.startDeg = 0;
   this.radians = 2 * Math.PI;
   this.color = getRandomColor();
-  this.dx = 4;
-  this.dy = 4;
+  this.dx = 3;
+  this.dy = 3; 
+  this.location();
+  this.getRadius(player);
 }
-Planet.prototype.getRadius = function (obj) {
-  this.radius = getRandom(20, (obj.radius));
+Planet.prototype.getRadius = function(obj) {
+  this.radius = getRandom(obj.radius * 0.10, (1.2 * obj.radius));
 };
 
 
-Planet.prototype.location = function () {
+Planet.prototype.location = function() {
   var border = getRandom(0, 3);
   switch (border) {
     case 0:
@@ -47,12 +49,15 @@ Planet.prototype.location = function () {
   }
 };
 
-Planet.prototype.collision = function (obj) {
-  
+Planet.prototype.collision = function(obj) {
+  var dx = obj.x - this.x;
+  var dy = obj.y - this.y;
+  var cradius = this.radius + obj.radius;
+  return ((dx * dx) + (dy * dy) < cradius * cradius);
 };
 
 
-Planet.prototype.draw = function () {
+Planet.prototype.draw = function() {
   ctx.fillStyle = this.color;
   ctx.beginPath();
   ctx.arc(this.x, this.y, this.radius, this.startDeg, this.radians, false);
@@ -74,14 +79,14 @@ var player = {
   x: canvas.width / 2,
   y: canvas.height / 2,
   startDeg: 0,
-  radius: 30,
+  radius: 20,
   radians: 2 * Math.PI,
   dx: 5,
   dy: 5,
   direction: "",
 
 
-  move: function (direction) {
+  move: function(direction) {
     if (direction === "up") {
       this.y += this.dy;
     } else if (direction === "down") {
@@ -96,7 +101,17 @@ var player = {
     }
   },
 
-  draw: function () {
+  grow: function(obj) {
+    var growT = obj.radius;
+    while (growT >= 0) {
+      if (this.radius <= canvas.width / 2)
+        this.radius += 1;
+      growT--;
+    }
+    obj.radius = growT;
+  },
+
+  draw: function() {
     var grd = ctx.createRadialGradient(
       this.x,
       this.y,
@@ -115,7 +130,7 @@ var player = {
     ctx.closePath();
     player.move(this.direction);
 
-    // player movement boundaries with border stops at margin
+    // player movement boundaries with border (stops at margin)
     if (this.x + this.radius > canvas.width) {
       player.move("left");
     } else if (this.x - this.radius < 0) {
@@ -130,24 +145,69 @@ var player = {
 
 
 var planetArr = [];
-for (var index = 0; index < 20; index++) {
-  planetArr[index] = new Planet();
-  planetArr[index].location();
-  planetArr[index].getRadius(player);
+for (var index = 0; index < 15; index++) {
+  planetArr[index] = new Planet(player);
+
 
 }
-
 
 function draw() {
+  var animationId = requestAnimationFrame(draw);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  planetArr.forEach(function(planet, i) {
+    planet.draw();
+    if (player.radius < canvas.width / 2) {
+      if (planet.collision(player) && (player.radius > planet.radius)) {
+        player.grow(planet);
+        planetArr.splice(i, 1);
+        planetArr.push(new Planet(player));
+      }
+      else if(planet.collision(player) && (player.radius <= planet.radius)) {
+        player.radius = 0;
+        $('#gameOverModal').modal('show');
+        cancelAnimationFrame(animationId);
+      }
+    }
+    else {
+      $('#YouWonModal').modal('show');
+      cancelAnimationFrame(animationId);
+    }
+  });
   player.draw();
-  requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(draw);
+draw();
+//   planetArr.forEach(function(planet, i) {
+//     planet.draw();
+//     if (planet.collision(player)) {
+//       if (player.radius > planet.radius) {
+//
+//         if (player.radius < canvas.width / 2) {
+//           player.grow(planet);
+//           planetArr.splice(i, 1);
+//           planetArr.push(new Planet(player));
+//         }
+//
+//          else if (player.radius >= canvas.width/2) {
+//           $('#youWonModal').modal('show');
+//         }
+//       } else {
+//         isGameOver = true;
+//       }
+//       if (isGameOver === true) {
+//         player.radius = 0;
+//         $('#gameOverModal').modal('show');
+//       }
+//     }
+//   });
+//   player.draw();
+//   requestAnimationFrame(draw);
+// }
+//
+// requestAnimationFrame(draw);
 
-$(document).ready(function () {
-  $(document).keydown(function () {
+$(document).ready(function() {
+  $(document).keydown(function() {
     switch (event.keyCode) {
       case 37:
         player.direction = "left";
