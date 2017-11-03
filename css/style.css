@@ -1,7 +1,7 @@
 body{
-  color: white;
   background: url(../images/galaxy-back.jpg) no-repeat center fixed;
   background-size: cover;
+  color: white;
   text-align: center;
 }
 
@@ -18,7 +18,7 @@ h2 {
   width: 20%;
 }
 .modal-body {
-  color: black; 
+  color: black;
 }
 
 .modal-title{

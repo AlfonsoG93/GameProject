@@ -3,7 +3,6 @@ canvas.width = window.innerWidth - 30;
 canvas.height = window.innerHeight - 30;
 
 var ctx = canvas.getContext("2d");
-
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -18,12 +17,12 @@ function Planet(player) {
   this.radians = 2 * Math.PI;
   this.color = getRandomColor();
   this.dx = 3;
-  this.dy = 3; 
+  this.dy = 3;
   this.location();
   this.getRadius(player);
 }
 Planet.prototype.getRadius = function(obj) {
-  this.radius = getRandom(obj.radius * 0.10, (1.2 * obj.radius));
+  this.radius = getRandom(obj.radius * 0.10, (1.5 * obj.radius));
 };
 
 
@@ -145,7 +144,7 @@ var player = {
 
 
 var planetArr = [];
-for (var index = 0; index < 15; index++) {
+for (var index = 0; index < 10; index++) {
   planetArr[index] = new Planet(player);
 
 
@@ -153,22 +152,32 @@ for (var index = 0; index < 15; index++) {
 
 function draw() {
   var animationId = requestAnimationFrame(draw);
+  var winAudio = new Audio("audio/win.wav");
+  var gameOverAudio = new Audio("audio/game-over.wav");
+  var gameAudio = new Audio("audio/space.wav");
+  var alert = new Audio("audio/confirmation-alert.wav");
+
+//gameAudio.play();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   planetArr.forEach(function(planet, i) {
     planet.draw();
     if (player.radius < canvas.width / 2) {
       if (planet.collision(player) && (player.radius > planet.radius)) {
         player.grow(planet);
+        alert.play();
         planetArr.splice(i, 1);
         planetArr.push(new Planet(player));
+      //  alert.pause();
       }
       else if(planet.collision(player) && (player.radius <= planet.radius)) {
         player.radius = 0;
+        gameOverAudio.play();
         $('#gameOverModal').modal('show');
         cancelAnimationFrame(animationId);
       }
     }
     else {
+      winAudio.play();
       $('#YouWonModal').modal('show');
       cancelAnimationFrame(animationId);
     }
